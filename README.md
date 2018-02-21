@@ -44,7 +44,7 @@
 - NOTE: The server will stop accepting requests after 24 hours of being logged in. Re-login to get a new session.
 
 ## Example API
-- Use the Example API to login [Example API](https://example-api-thejuki.glitch.me)
+- Use the [Example API](https://example-api-thejuki.glitch.me) to login
 
 ## Contributing
 You can submit pull requests or issues to this project to make this example Android app even better!
