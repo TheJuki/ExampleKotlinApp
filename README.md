@@ -20,6 +20,15 @@
 - LolliPin for securing the app with a passcode
 - dokka for documentation
 
+## Screenshots
+| [Login](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/activity/LoginActivity.kt) | [Drawer](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/activity/DrawerActivity.kt) | [Search Contacts](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/fragment/list/ContactListFragment.kt) |
+| --- | --- | --- |
+![Login](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Login.png) | ![Drawer](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Drawer.png) | ![Search Contacts](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Search%20Contacts.png) |
+
+| [Contact Details](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/activity/detail/ContactDetailActivity.kt) | [Contact Form](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/activity/form/ContactFormActivity.kt) | [Dark Theme](https://github.com/TheJuki/ExampleKotlinApp/blob/master/app/src/main/java/com/thejuki/example/activity/SettingsActivity.kt) |
+| --- | --- | --- |
+![Contact Details](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Info.png) | ![Contact Form](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Contact%20Form.png) | ![Dark Theme](https://github.com/TheJuki/ExampleKotlinApp/blob/master/screenshots/Dark%20Contacts.png) |
+
 ## Get Started
 - Clone this repository and open it in Android Studio
 - Integrate with Firebase to get a google-services.json file 
@@ -58,7 +67,9 @@ You can submit pull requests or issues to this project to make this example Andr
 
 ## References
 * [Refactoring utility classes with Kotlin : Shared Preferences](https://medium.com/@krupalshah55/manipulating-shared-prefs-with-kotlin-just-two-lines-of-code-29af62440285)
-
+* [Splash Screens the Right Way](https://www.bignerdranch.com/blog/splash-screens-the-right-way)
+* [materialistic](https://github.com/hidroh/materialistic)
+* [Moving from Dialogs to BottomSheetDialogs on Android](https://medium.com/glucosio-project/moving-from-dialogs-to-bottomsheetdialogs-on-android-15fb8d140295)
 
 License
 -----------------
