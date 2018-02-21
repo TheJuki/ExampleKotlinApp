@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- default theme colors -->
+    <color name="colorPrimary">#43a047</color>
+    <color name="colorPrimaryDark">#00701a</color>
+    <color name="colorAccent">#66bb6a</color>
+    <color name="colorDarkBlue">#0066CC</color>
+    <color name="colorTabIndicator">#FFFFFF</color>
+    <color name="listItemBackground">#FFFFFF</color>
+    <color name="listBackground">#FFFFFF</color>
+    <color name="listHeaderBackground">#e0e0e0</color>
+
+    <!-- Override form colors -->
+    <color name="colorFormMasterElementFocusedTitle">@color/colorPrimary</color>
+    <color name="colorFormMasterElementButtonText">@color/colorPrimary</color>
+
+    <!-- dark theme colors -->
+    <color name="colorPrimaryInverse">#191919</color>
+    <color name="colorPrimaryDarkInverse">#191919</color>
+    <color name="colorAccentInverse">#289cd6</color>
+    <color name="listItemBackgroundInverse">#191919</color>
+    <color name="listBackgroundInverse">#757575</color>
+    <color name="listHeaderBackgroundInverse">#000000</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGray">#bdbdbd</color>
+    <color name="colorLightGray">#e0e0e0</color>
+    <color name="colorDarkGray">#757575</color>
+
+    <!-- text color: white -->
+    <color name="textColorPrimary">#000000</color>
+    <color name="textColorSecondary">#757575</color>
+
+    <!-- inverse text color -->
+    <color name="textColorPrimaryInverse">#FFFFFF</color>
+    <color name="textColorSecondaryInverse">#bdbdbd</color>
+
+    <color name="refresh_progress_1">@color/colorPrimary</color>
+    <color name="refresh_progress_2">@color/colorPrimaryDark</color>
+    <color name="refresh_progress_3">@color/colorAccent</color>
+
+    <color name="pie_slice_red">#c73302</color>
+    <color name="pie_slice_orange">#eb9a0e</color>
+    <color name="pie_slice_yellow">#f5ce22</color>
+    <color name="pie_slice_blue">#0066CC</color>
+    <color name="pie_slice_green">#3dd35d</color>
+</resources>

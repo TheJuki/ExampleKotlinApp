@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="listItemBackground" format="reference|color" />
+    <attr name="listBackground" format="reference|color" />
+    <attr name="listHeaderBackground" format="reference|color" />
+</resources>

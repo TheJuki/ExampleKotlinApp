@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.thejuki.example"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "app_version", variant.versionName
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            useProguard false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro',
+                    'proguard-square.pro',
+                    'proguard-support.pro',
+                    'proguard-rx.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+    jdkVersion = 8
+}
+
+ext {
+    supportVersion = '27.0.2'
+    retrofitVersion = '2.3.0'
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.1.7'
+    firebaseVersion = '11.8.0'
+    crashlyticsVersion = '2.7.1'
+    securePreferencesVersion = '0.1.4'
+    MPAndroidChartVersion = '3.0.3'
+    barcodeScannerVersion = '1.9.8'
+    richEditorVersion = '1.2.2'
+    lolliPinVersion = '2.1.0'
+    permissionsDispatcherVersion = '3.1.0'
+    kFormMasterVersion = '1.2.3'
+    constraintLayoutVersion = '1.0.2'
+    junitVersion = '4.12'
+    testRunnerVersion = '1.0.1'
+    testExpressoVersion = '3.0.1'
+    rendererRecyclerViewAdapterVersion = '2.5.0'
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$supportVersion",
+            "com.android.support:support-v4:$supportVersion",
+            "com.android.support:recyclerview-v7:$supportVersion",
+            "com.android.support:design:$supportVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    testImplementation "junit:junit:$junitVersion"
+    //noinspection GradleCompatible
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$testExpressoVersion"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$firebaseVersion",
+            "com.google.firebase:firebase-messaging:$firebaseVersion"
+
+    // Secure User Preferences
+    implementation "com.scottyab:secure-preferences-lib:$securePreferencesVersion"
+
+    // Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion@aar") {
+        transitive = true
+    }
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // RxJava and RxAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    // Charts
+    implementation "com.github.PhilJay:MPAndroidChart:v$MPAndroidChartVersion"
+
+    // HTML Editor
+    implementation "jp.wasabeef:richeditor-android:$richEditorVersion"
+
+    // QR Code Scanner
+    implementation "me.dm7.barcodescanner:zxing:$barcodeScannerVersion"
+
+    // LolliPin Passcode
+    implementation("com.github.omadahealth:lollipin:$lolliPinVersion@aar") {
+        transitive = true
+        exclude group: "com.android.support", module: "appcompat-v7"
+    }
+
+    implementation("com.github.hotchemi:permissionsdispatcher:$permissionsDispatcherVersion") {
+        exclude module: "support-v13"
+    }
+    kapt "com.github.hotchemi:permissionsdispatcher-processor:$permissionsDispatcherVersion"
+
+    implementation "com.thejuki:k-form-master:$kFormMasterVersion"
+}
+
+apply plugin: 'com.google.gms.google-services'
