@@ -30,6 +30,7 @@ class ExampleFirebaseMessagingService : FirebaseMessagingService() {
         // Update device token
         ApiClient.getInstance(this.applicationContext).updateDeviceRegistration(token.orEmpty())
     }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
 

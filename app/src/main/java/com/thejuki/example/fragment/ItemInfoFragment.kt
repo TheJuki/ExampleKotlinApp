@@ -37,7 +37,7 @@ class ItemInfoFragment : androidx.fragment.app.Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_item_info, container, false)
         prefs = PreferenceHelper.defaultPrefs(context!!)
-        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16").toFloatOrNull()
+        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16")?.toFloatOrNull()
                 ?: 16f
         mInfoTextView = view.infoText
         mInfoTextView!!.text = infoString.fromHtml()

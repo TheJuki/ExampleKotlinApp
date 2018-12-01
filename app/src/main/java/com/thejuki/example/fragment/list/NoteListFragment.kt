@@ -40,18 +40,18 @@ class NoteListFragment : BaseListFragment() {
                 type = savedInstanceState.getSerializable(ARG_TYPE) as NoteType
             }
             if (savedInstanceState.containsKey(ARG_PARENT_ID)) {
-                parentId = savedInstanceState.getString(ARG_PARENT_ID)
+                parentId = savedInstanceState.getString(ARG_PARENT_ID) ?: ""
             }
             if (savedInstanceState.containsKey(ARG_PARENT_TYPE)) {
-                parentType = savedInstanceState.getString(ARG_PARENT_TYPE)
+                parentType = savedInstanceState.getString(ARG_PARENT_TYPE) ?: ""
             }
         } else {
             if (arguments != null) {
                 with(arguments!!)
                 {
                     type = this.getSerializable(ARG_TYPE) as NoteType
-                    parentId = this.getString(ARG_PARENT_ID)
-                    parentType = this.getString(ARG_PARENT_TYPE)
+                    parentId = this.getString(ARG_PARENT_ID) ?: ""
+                    parentType = this.getString(ARG_PARENT_TYPE) ?: ""
                 }
 
             }
@@ -67,7 +67,7 @@ class NoteListFragment : BaseListFragment() {
             v.context.startActivity(intent)
         }
 
-        mHeader!!.setOnClickListener({ _ ->
+        mHeader!!.setOnClickListener { _ ->
             val options = NoteType.values().map { it.value }.toTypedArray()
             AlertDialog.Builder(context!!)
                     .setTitle(getString(R.string.filter))
@@ -77,11 +77,11 @@ class NoteListFragment : BaseListFragment() {
                         showLoading()
                         reload()
                     }
-                    .setNegativeButton(getString(android.R.string.cancel), { _, _ ->
-                    })
+                    .setNegativeButton(getString(android.R.string.cancel)) { _, _ ->
+                    }
                     .create()
                     .show()
-        })
+        }
 
         return view
     }

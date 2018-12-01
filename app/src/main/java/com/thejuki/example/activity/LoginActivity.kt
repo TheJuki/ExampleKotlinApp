@@ -8,7 +8,6 @@ import android.view.inputmethod.EditorInfo
 import android.webkit.URLUtil
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.iid.FirebaseInstanceId
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
@@ -89,9 +88,6 @@ class LoginActivity : AppCompatActivity() {
                                     prefs[PreferenceConstants.userPreferencesData] = result.userPreferences
                                     prefs[PreferenceConstants.rolesData] = result.roles
                                     progressbar.visibility = View.INVISIBLE
-
-                                    // Update device token
-                                    ApiClient.getInstance(this).updateDeviceRegistration(FirebaseInstanceId.getInstance().token.orEmpty())
 
                                     // Update roles
                                     AuthManager.getInstance(this).refresh()

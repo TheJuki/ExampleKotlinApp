@@ -14,8 +14,12 @@ import android.os.Parcel
 fun Parcel.readBundleMap(): Map<String, String> {
     val bundle = this.readBundle(String::class.java.classLoader)
     val map = HashMap<String, String>()
+    if (bundle == null) {
+        return map
+    }
+
     for (key in bundle.keySet()) {
-        map[key] = bundle.getString(key)
+        map[key] = bundle.getString(key) ?: ""
     }
     return map
 }
