@@ -21,9 +21,9 @@ import kotlinx.android.synthetic.main.activity_scanner.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ScannerActivity : BaseActivity(), ZXingScannerView.ResultHandler {
+class ScannerActivity : BaseActivity(), me.dm7.barcodescanner.zxing.ZXingScannerView.ResultHandler {
 
-    private var mScannerView: ZXingScannerView? = null
+    private var mScannerView: me.dm7.barcodescanner.zxing.ZXingScannerView? = null
     private var mFlash: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class ScannerActivity : BaseActivity(), ZXingScannerView.ResultHandler {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.scanner)
         val contentFrame = content_frame
-        mScannerView = ZXingScannerView(this)
+        mScannerView = me.dm7.barcodescanner.zxing.ZXingScannerView(this)
         mScannerView!!.setFormats(listOf<BarcodeFormat>(
                 BarcodeFormat.UPC_E, BarcodeFormat.EAN_8, BarcodeFormat.EAN_13, BarcodeFormat.QR_CODE))
         scannerFlashToggle.setOnClickListener {
