@@ -1,5 +1,6 @@
 package com.thejuki.example.api
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
@@ -8,6 +9,7 @@ import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.json.*
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -83,6 +85,7 @@ class ApiClient private constructor(context: Context) {
     }
 
     // Update device ID
+    @SuppressLint("CheckResult")
     fun updateDeviceRegistration(deviceToken: String) {
         postDeviceRegistration(deviceToken)
                 .subscribeOn(Schedulers.io())

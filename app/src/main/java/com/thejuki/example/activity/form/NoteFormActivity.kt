@@ -2,9 +2,9 @@ package com.thejuki.example.activity.form
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.HTMLEditorActivity
 import com.thejuki.example.activity.detail.BaseDetailActivity
@@ -17,6 +17,7 @@ import com.thejuki.example.json.NoteJson
 import com.thejuki.kformmaster.helper.*
 import com.thejuki.kformmaster.listener.OnFormElementValueChangedListener
 import com.thejuki.kformmaster.model.BaseFormElement
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_form.*
 

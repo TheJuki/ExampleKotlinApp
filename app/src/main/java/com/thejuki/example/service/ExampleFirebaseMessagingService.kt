@@ -5,12 +5,13 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
-import android.support.v4.app.NotificationCompat
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.thejuki.example.R
 import com.thejuki.example.activity.MainActivity
+import com.thejuki.example.api.ApiClient
 import com.thejuki.example.extension.toSafeLong
 
 /**
@@ -22,6 +23,13 @@ import com.thejuki.example.extension.toSafeLong
  * @version 1.0
  */
 class ExampleFirebaseMessagingService : FirebaseMessagingService() {
+    override fun onNewToken(token: String?) {
+        // Get updated InstanceID token.
+        Log.d("FirebaseInstanceID", "Refreshed token: " + token.orEmpty())
+
+        // Update device token
+        ApiClient.getInstance(this.applicationContext).updateDeviceRegistration(token.orEmpty())
+    }
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
 

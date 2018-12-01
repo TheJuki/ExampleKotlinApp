@@ -1,7 +1,6 @@
 package com.thejuki.example.adapter.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 
@@ -14,10 +13,10 @@ import android.view.View
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class RecyclerViewEmptySupport : RecyclerView {
+class RecyclerViewEmptySupport : androidx.recyclerview.widget.RecyclerView {
     private var emptyView: View? = null
 
-    private val emptyObserver = object : RecyclerView.AdapterDataObserver() {
+    private val emptyObserver = object : androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             val adapter = adapter
             if (adapter != null && emptyView != null) {
@@ -38,7 +37,7 @@ class RecyclerViewEmptySupport : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {}
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>?) {
         super.setAdapter(adapter)
         adapter?.registerAdapterDataObserver(emptyObserver)
         emptyObserver.onChanged()

@@ -5,13 +5,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.detail.BaseDetailActivity
 import com.thejuki.example.activity.detail.ContactDetailActivity
@@ -29,7 +26,7 @@ import com.thejuki.example.json.InfoJson
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class InfoListFragment : Fragment() {
+class InfoListFragment : androidx.fragment.app.Fragment() {
 
     private var mValues: ArrayList<InfoJson>? = null
 
@@ -51,9 +48,9 @@ class InfoListFragment : Fragment() {
             }
         }
 
-        if (view is RecyclerView) {
+        if (view is androidx.recyclerview.widget.RecyclerView) {
             val context = view.getContext()
-            view.layoutManager = LinearLayoutManager(context)
+            view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
             val adapter = InfoItemRecyclerViewAdapter(mValues!!.toList())
 
             adapter.mOnClickListener = View.OnClickListener { v ->

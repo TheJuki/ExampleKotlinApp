@@ -2,11 +2,11 @@ package com.thejuki.example.fragment.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.detail.BaseDetailActivity
 import com.thejuki.example.activity.detail.NoteDetailActivity

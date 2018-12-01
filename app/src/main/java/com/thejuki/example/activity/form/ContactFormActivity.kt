@@ -4,10 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.ScannerActivity
 import com.thejuki.example.activity.detail.BaseDetailActivity
@@ -24,8 +24,10 @@ import com.thejuki.kformmaster.helper.*
 import com.thejuki.kformmaster.listener.OnFormElementValueChangedListener
 import com.thejuki.kformmaster.model.BaseFormElement
 import com.thejuki.kformmaster.model.FormPickerDropDownElement
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_form.*
+import permissions.dispatcher.*
 
 /**
  * Contact Form Activity

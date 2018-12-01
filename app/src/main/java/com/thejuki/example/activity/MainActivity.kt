@@ -7,8 +7,6 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import com.crashlytics.android.Crashlytics
-import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
@@ -36,16 +34,6 @@ class MainActivity : Activity() {
         ApiClient.getInstance(this)
 
 
-        // LolliPin
-        val defPrefs = PreferenceHelper.defaultPrefs(this)
-        if (defPrefs.getBoolean(PreferenceConstants.usePasscode, false)) {
-            val lockManager = LockManager.getInstance()
-            lockManager.enableAppLock(this, CustomPinLockActivity::class.java)
-            lockManager.appLock.timeout = 1000
-            lockManager.appLock.logoId = R.drawable.ic_memory_black_64dp
-            lockManager.appLock.isFingerprintAuthEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-        }
-
         // Create channel to show notifications.
         @SuppressLint("NewApi")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -62,7 +50,7 @@ class MainActivity : Activity() {
             // Initialize roles manager
             AuthManager.getInstance(this)
 
-            Crashlytics.setUserIdentifier(ApiClient.getInstance(this).getUsername())
+            //Crashlytics.setUserIdentifier(ApiClient.getInstance(this).getUsername())
             val intent = Intent(this, DrawerActivity::class.java)
             startActivity(intent)
             finish()

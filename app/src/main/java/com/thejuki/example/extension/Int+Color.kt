@@ -1,7 +1,7 @@
 package com.thejuki.example.extension
 
 import android.content.Context
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 
 /**
  * Int Color Extensions

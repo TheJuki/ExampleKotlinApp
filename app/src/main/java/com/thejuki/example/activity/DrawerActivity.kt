@@ -4,14 +4,13 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
@@ -151,7 +150,7 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
 
     private fun replaceItemContainer(itemId: Int,
                                      searchTerm: String? = null, isSearching: Boolean = false) {
-        var fragment: Fragment? = null
+        var fragment: androidx.fragment.app.Fragment? = null
         when (itemId) {
             R.id.nav_contacts -> {
                 title = getString(R.string.contacts)
@@ -186,7 +185,7 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
     private fun logout() {
         val confirmAlert = AlertDialog.Builder(this).create()
         confirmAlert.setTitle(this.getString(R.string.login_confirm_title))
-        confirmAlert.setButton(AlertDialog.BUTTON_POSITIVE, this.getString(android.R.string.ok), { _, _ ->
+        confirmAlert.setButton(AlertDialog.BUTTON_POSITIVE, this.getString(android.R.string.ok)) { _, _ ->
             val prefs = PreferenceHelper.securePrefs(this)
             prefs[PreferenceConstants.username] = null
             prefs[PreferenceConstants.fullname] = null
@@ -200,9 +199,9 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             startActivity(intent)
             finish()
 
-        })
-        confirmAlert.setButton(AlertDialog.BUTTON_NEGATIVE, this.getString(android.R.string.cancel), { _, _ ->
-        })
+        }
+        confirmAlert.setButton(AlertDialog.BUTTON_NEGATIVE, this.getString(android.R.string.cancel)) { _, _ ->
+        }
         confirmAlert.show()
     }
 

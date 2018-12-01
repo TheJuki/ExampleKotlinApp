@@ -1,7 +1,6 @@
 package com.thejuki.example.adapter.view
 
 import android.content.SharedPreferences
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.json.InfoJson
-
 import kotlinx.android.synthetic.main.info_item_list_content.view.*
 
 /**
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.info_item_list_content.view.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : RecyclerView.Adapter<InfoItemRecyclerViewAdapter.ViewHolder>() {
+class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : androidx.recyclerview.widget.RecyclerView.Adapter<InfoItemRecyclerViewAdapter.ViewHolder>() {
 
     lateinit var mOnClickListener: View.OnClickListener
     lateinit var prefs: SharedPreferences
@@ -52,7 +50,7 @@ class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : Recycle
         return mValues.size
     }
 
-    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val mTitle: TextView = mView.title
         val mSubtitle: TextView = mView.subtitle
     }

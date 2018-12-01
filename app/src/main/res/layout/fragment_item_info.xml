@@ -7,7 +7,7 @@
     android:layout_marginBottom="32dp"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -27,5 +27,5 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

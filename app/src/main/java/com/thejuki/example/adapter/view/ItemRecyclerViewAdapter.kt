@@ -1,7 +1,6 @@
 package com.thejuki.example.adapter.view
 
 import android.content.SharedPreferences
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.item_list_content.view.*
  * @version 1.0
  */
 class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableListOf<TableCellJson>()) :
-        RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
+        androidx.recyclerview.widget.RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
 
     lateinit var mOnClickListener: View.OnClickListener
     lateinit var prefs: SharedPreferences
@@ -60,7 +59,7 @@ class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableL
         return mValues.size
     }
 
-    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val mId: TextView = mView.item_id
         val mAccount: TextView = mView.item_account
         val mCategory: TextView = mView.item_category

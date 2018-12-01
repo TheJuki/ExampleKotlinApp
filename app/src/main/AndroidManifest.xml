@@ -5,14 +5,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <uses-feature
         android:name="android.hardware.fingerprint"
         android:required="false" />
 
     <application
-        android:name=".ExampleApplication"
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,13 +32,6 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <service
-            android:name=".service.ExampleFirebaseInstanceIDService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
         <service
             android:name=".service.ExampleFirebaseMessagingService"
             android:exported="false">
@@ -99,9 +91,6 @@
 
         <!-- HTML Editor -->
         <activity android:name=".activity.HTMLEditorActivity" />
-
-        <!-- PIN Activity -->
-        <activity android:name=".activity.CustomPinLockActivity" />
 
         <!-- Details -->
         <activity

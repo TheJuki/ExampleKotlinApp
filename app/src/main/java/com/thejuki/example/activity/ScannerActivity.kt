@@ -4,14 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.thejuki.example.R
 import com.thejuki.example.extension.simple
 import kotlinx.android.synthetic.main.activity_scanner.*
-import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 /**
  * Scanner Activity

@@ -2,7 +2,6 @@ package com.thejuki.example.fragment
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_item_info.view.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ItemInfoFragment : Fragment() {
+class ItemInfoFragment : androidx.fragment.app.Fragment() {
 
     private var infoString: String? = null
     private var mInfoTextView: TextView? = null

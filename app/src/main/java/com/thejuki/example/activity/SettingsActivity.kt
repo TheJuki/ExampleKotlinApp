@@ -11,8 +11,6 @@ import android.preference.Preference
 import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
 import android.view.MenuItem
-import com.github.omadahealth.lollipin.lib.managers.AppLock
-import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.extension.PreferenceHelper
@@ -90,7 +88,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         return PreferenceFragment::class.java.name == fragmentName
                 || AboutPreferenceFragment::class.java.name == fragmentName
                 || GeneralPreferenceFragment::class.java.name == fragmentName
-                || SecurityPreferenceFragment::class.java.name == fragmentName
     }
 
     /**
@@ -132,44 +129,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_about)
             setHasOptionsMenu(true)
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
-            }
-            return super.onOptionsItemSelected(item)
-        }
-    }
-
-    /**
-     * Security Settings
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class SecurityPreferenceFragment : PreferenceFragment() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_security)
-            setHasOptionsMenu(true)
-            findPreference(PreferenceConstants.usePasscode).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, value ->
-                if (value as Boolean) {
-                    val lockManager = LockManager.getInstance()
-                    lockManager.enableAppLock(preference.context, CustomPinLockActivity::class.java)
-                    lockManager.appLock.timeout = 1000
-                    lockManager.appLock.logoId = R.drawable.ic_memory_black_64dp
-                    lockManager.appLock.isFingerprintAuthEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-
-                    val intent = Intent(preference.context, CustomPinLockActivity::class.java)
-                    intent.putExtra(AppLock.EXTRA_TYPE, AppLock.ENABLE_PINLOCK)
-                    startActivityForResult(intent, 11)
-                } else {
-                    val lockManager = LockManager.getInstance()
-                    lockManager.disableAppLock()
-                }
-                true
-            }
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {

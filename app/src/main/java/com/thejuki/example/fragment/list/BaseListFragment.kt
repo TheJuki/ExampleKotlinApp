@@ -1,17 +1,13 @@
 package com.thejuki.example.fragment.list
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.thejuki.example.R
 import com.thejuki.example.adapter.view.ItemRecyclerViewAdapter
 import com.thejuki.example.adapter.view.RecyclerViewEmptySupport
@@ -30,7 +26,7 @@ import java.util.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-abstract class BaseListFragment : Fragment() {
+abstract class BaseListFragment : androidx.fragment.app.Fragment() {
     protected var searchTerm: String? = null
     protected var isSearching: Boolean = false
 
@@ -39,7 +35,7 @@ abstract class BaseListFragment : Fragment() {
     private var mRecycleView: RecyclerViewEmptySupport? = null
     protected var mFab: FloatingActionButton? = null
     protected var mHeader: View? = null
-    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    private var mSwipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null
     private var mEmptyView: TextView? = null
     private var mProgressBar: ProgressBar? = null
     protected var mItemRecyclerViewAdapter: ItemRecyclerViewAdapter? = null
@@ -75,10 +71,10 @@ abstract class BaseListFragment : Fragment() {
         mItemRecyclerViewAdapter = ItemRecyclerViewAdapter()
         mRecycleView!!.adapter = mItemRecyclerViewAdapter
 
-        val dividerItemDecoration = DividerItemDecoration(mRecycleView!!.context,
-                DividerItemDecoration.VERTICAL)
+        val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(mRecycleView!!.context,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
         mRecycleView!!.addItemDecoration(dividerItemDecoration)
-        mRecycleView!!.layoutManager = LinearLayoutManager(context)
+        mRecycleView!!.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         mRecycleView!!.setEmptyView(mEmptyView!!)
 
         mSwipeRefreshLayout!!.setOnRefreshListener(

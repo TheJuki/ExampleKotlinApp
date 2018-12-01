@@ -1,10 +1,10 @@
 package com.thejuki.example.activity.detail
 
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.BaseActivity
 import io.reactivex.disposables.Disposable

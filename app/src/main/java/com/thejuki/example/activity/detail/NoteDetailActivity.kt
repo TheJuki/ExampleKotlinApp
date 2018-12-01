@@ -2,15 +2,13 @@ package com.thejuki.example.activity.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayout
 import com.thejuki.example.R
 import com.thejuki.example.activity.detail.NoteDetailActivity.Tabs.*
 import com.thejuki.example.activity.form.BaseFormActivity
@@ -115,9 +113,9 @@ class NoteDetailActivity : BaseDetailActivity<NoteJson>() {
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    inner class SectionsPagerAdapter(fm: FragmentManager, private val tabCount: Int) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: androidx.fragment.app.FragmentManager, private val tabCount: Int) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             return when (values()[position]) {
                 Info -> InfoListFragment.newInstance(mItem!!.getInfos())
                 Body -> ItemInfoFragment.newInstance(mItem!!.body.orEmpty())

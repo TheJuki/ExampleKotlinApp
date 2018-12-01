@@ -2,15 +2,12 @@ package com.thejuki.example.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -18,6 +15,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.github.mikephil.charting.utils.MPPointF
+import com.google.android.material.snackbar.Snackbar
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
 import com.thejuki.example.extension.getThemeAttrColor
@@ -38,12 +36,12 @@ import java.util.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ChartFragment : Fragment() {
+class ChartFragment : androidx.fragment.app.Fragment() {
     private val logTag = "Chart"
     private var disposable: Disposable? = null
 
     private var mItem: CountsJson? = null
-    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    private var mSwipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null
     private var mCoordinatorLayout: View? = null
     private var mFirstPieChart: PieChart? = null
     private var mSecondPieChart: PieChart? = null

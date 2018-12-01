@@ -1,13 +1,11 @@
 package com.thejuki.example.fragment
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.tabs.TabLayout
 import com.thejuki.example.R
 import com.thejuki.example.fragment.QueueFragment.Tabs.Counts
 import com.thejuki.example.fragment.QueueFragment.Tabs.values
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.tabbed_fragment.view.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class QueueFragment : Fragment() {
+class QueueFragment : androidx.fragment.app.Fragment() {
     private var mSectionsPagerAdapter: QueueFragment.SectionsPagerAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +50,9 @@ class QueueFragment : Fragment() {
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    inner class SectionsPagerAdapter(fm: FragmentManager, private val tabCount: Int) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: androidx.fragment.app.FragmentManager, private val tabCount: Int) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             return when (values()[position]) {
                 Counts -> ChartFragment.newInstance()
             }

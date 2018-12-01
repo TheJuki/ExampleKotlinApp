@@ -3,12 +3,12 @@ package com.thejuki.example.activity.form
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.BaseActivity
 import io.reactivex.disposables.Disposable
@@ -74,11 +74,11 @@ abstract class BaseFormActivity<T : Parcelable> : BaseActivity() {
         AlertDialog.Builder(this)
                 .setTitle(this.getString(R.string.discard_confirm_title))
                 .setMessage(this.getString(R.string.discard_confirm_description))
-                .setPositiveButton(this.getString(android.R.string.ok), { _, _ ->
+                .setPositiveButton(this.getString(android.R.string.ok)) { _, _ ->
                     finish()
-                })
-                .setNegativeButton(this.getString(android.R.string.cancel), { _, _ ->
-                })
+                }
+                .setNegativeButton(this.getString(android.R.string.cancel)) { _, _ ->
+                }
                 .create().show()
     }
 
