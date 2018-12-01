@@ -24,10 +24,8 @@ import com.thejuki.kformmaster.helper.*
 import com.thejuki.kformmaster.listener.OnFormElementValueChangedListener
 import com.thejuki.kformmaster.model.BaseFormElement
 import com.thejuki.kformmaster.model.FormPickerDropDownElement
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_form.*
-import permissions.dispatcher.*
 
 /**
  * Contact Form Activity
@@ -145,11 +143,11 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
         }
 
         val formBuildHelper = form(this, formRecyclerView, listener) {
-            text<String>(FirstName.ordinal) {
+            text(FirstName.ordinal) {
                 title = getString(R.string.lbl_firstName)
                 value = mItem!!.firstName.orEmpty()
             }
-            text<String>(LastName.ordinal) {
+            text(LastName.ordinal) {
                 title = getString(R.string.lbl_LastName)
                 value = mItem!!.lastName.orEmpty()
             }
@@ -160,15 +158,15 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
                 arrayAdapter = ListItemAdapter(this@ContactFormActivity,
                         android.R.layout.simple_list_item_1)
             }
-            email<String>(Email.ordinal) {
+            email(Email.ordinal) {
                 title = getString(R.string.lbl_emailAddress)
                 value = mItem!!.emailAddress.orEmpty()
             }
-            phone<String>(BusinessPhone.ordinal) {
+            phone(BusinessPhone.ordinal) {
                 title = getString(R.string.lbl_businessPhone)
                 value = mItem!!.businessPhone.orEmpty()
             }
-            phone<String>(MobilePhone.ordinal) {
+            phone(MobilePhone.ordinal) {
                 title = getString(R.string.lbl_mobilePhone)
                 value = mItem!!.mobilePhone.orEmpty()
             }
@@ -180,13 +178,13 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
                         android.R.layout.simple_list_item_1)
             }
             header { title = getString(R.string.scan) }
-            button<String>(Scan.ordinal)
+            button(Scan.ordinal)
             {
                 value = getString(R.string.scanner)
             }
         }
 
-        fillTeamArrayAdapter((formBuildHelper.getFormElement(Team.ordinal) as FormPickerDropDownElement).arrayAdapter as ListItemAdapter)
+        fillTeamArrayAdapter((formBuildHelper.getFormElement<FormPickerDropDownElement<ListItemJson>>(Team.ordinal)).arrayAdapter as ListItemAdapter)
     }
 
     private fun fillTeamArrayAdapter(arrayAdapter: ListItemAdapter) {

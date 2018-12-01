@@ -13,7 +13,7 @@ fun String?.toSafeLong(): Long {
         0L
     } else {
         try {
-            this!!.toLong()
+            this.toLong()
         } catch (e: NumberFormatException) {
             0L
         }

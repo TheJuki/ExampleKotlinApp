@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.gradle_version = '3.0.1'
-    ext.kotlin_version = '1.2.21'
-    ext.dokka_version = '0.9.15'
-    ext.fabric_version = '1.24.4'
-    ext.gms_version = '3.1.0'
+    ext.gradle_version = '3.2.1'
+    ext.kotlin_version = '1.3.10'
+    ext.dokka_version = '0.9.17'
+    ext.fabric_version = '1.26.1'
+    ext.gms_version = '4.2.0'
     repositories {
         google()
         jcenter()
@@ -17,7 +17,6 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokka_version"
-        classpath "io.fabric.tools:gradle:$fabric_version"
         classpath "com.google.gms:google-services:$gms_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
     }

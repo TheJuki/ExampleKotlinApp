@@ -17,7 +17,6 @@ import com.thejuki.example.json.NoteJson
 import com.thejuki.kformmaster.helper.*
 import com.thejuki.kformmaster.listener.OnFormElementValueChangedListener
 import com.thejuki.kformmaster.model.BaseFormElement
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_form.*
 
@@ -92,14 +91,14 @@ class NoteFormActivity : BaseFormActivity<NoteJson>() {
                     value = options!!.find { item -> item.name == "Status" }
                 }
             } else {
-                textView<String>(Type.ordinal)
+                textView(Type.ordinal)
                 {
                     title = getString(R.string.lbl_type)
                     value = mItem!!.type.orEmpty()
                 }
             }
             header { title = getString(R.string.lbl_body) }
-            button<String>(Body.ordinal)
+            button(Body.ordinal)
             {
                 value = getString(R.string.lbl_edit_body)
             }

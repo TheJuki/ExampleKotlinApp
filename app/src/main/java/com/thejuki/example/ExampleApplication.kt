@@ -3,8 +3,7 @@ package com.thejuki.example
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.github.omadahealth.lollipin.lib.managers.AppLockImpl
-import com.github.omadahealth.lollipin.lib.managers.LockManager
+import android.support.multidex.MultiDexApplication
 import com.thejuki.example.activity.SplashActivity
 
 /**
@@ -15,7 +14,7 @@ import com.thejuki.example.activity.SplashActivity
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ExampleApplication : Application() {
+class ExampleApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

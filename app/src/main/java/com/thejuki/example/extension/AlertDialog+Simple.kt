@@ -14,15 +14,15 @@ import android.support.v7.app.AlertDialog
 fun AlertDialog.simple(@StringRes titleId: Int, @StringRes messageId: Int) {
     this.setTitle(this.context.getString(titleId))
     this.setMessage(this.context.getString(messageId))
-    this.setButton(AlertDialog.BUTTON_POSITIVE, this.context.getString(android.R.string.ok), { _, _ ->
-    })
+    this.setButton(AlertDialog.BUTTON_POSITIVE, this.context.getString(android.R.string.ok)) { _, _ ->
+    }
     this.show()
 }
 
 fun AlertDialog.simple(@StringRes titleId: Int, message: String) {
     this.setTitle(this.context.getString(titleId))
     this.setMessage(message)
-    this.setButton(AlertDialog.BUTTON_POSITIVE, this.context.getString(android.R.string.ok), { _, _ ->
-    })
+    this.setButton(AlertDialog.BUTTON_POSITIVE, this.context.getString(android.R.string.ok)) { _, _ ->
+    }
     this.show()
 }

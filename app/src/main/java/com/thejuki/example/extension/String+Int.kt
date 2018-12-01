@@ -13,7 +13,7 @@ fun String?.toSafeInt(): Int {
         0
     } else {
         try {
-            this!!.toInt()
+            this.toInt()
         } catch (e: NumberFormatException) {
             0
         }

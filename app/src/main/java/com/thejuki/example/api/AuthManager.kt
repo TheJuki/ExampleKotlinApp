@@ -23,7 +23,7 @@ class AuthManager private constructor(context: Context) {
     }
 
     fun refresh() {
-        roles = prefs!!.getStringSet(PreferenceConstants.rolesData, mutableSetOf<String>())
+        roles = prefs!!.getStringSet(PreferenceConstants.rolesData, mutableSetOf<String>()) ?: mutableSetOf()
     }
 
     fun has(role: String): Boolean {

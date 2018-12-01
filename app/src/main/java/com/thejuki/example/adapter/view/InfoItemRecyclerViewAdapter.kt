@@ -35,7 +35,7 @@ class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16").toFloatOrNull()
+        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16")?.toFloatOrNull()
                 ?: 16f
         holder.mTitle.text = item.title.orEmpty()
         holder.mTitle.textSize = fontSize

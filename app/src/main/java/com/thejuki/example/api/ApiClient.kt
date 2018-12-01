@@ -8,7 +8,6 @@ import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.json.*
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -28,7 +27,7 @@ class ApiClient private constructor(context: Context) {
 
     init {
         prefs = PreferenceHelper.securePrefs(context)
-        val serverUrl: String? = prefs!!.getString(PreferenceConstants.serverUrl, "")
+        val serverUrl: String? = prefs?.getString(PreferenceConstants.serverUrl, "")
 
         replaceUrl(serverUrl.orEmpty())
     }
@@ -53,19 +52,19 @@ class ApiClient private constructor(context: Context) {
     }
 
     private fun getToken(): String {
-        return prefs!!.getString(PreferenceConstants.token, "")
+        return prefs?.getString(PreferenceConstants.token, "") ?: ""
     }
 
     fun getUserId(): String {
-        return prefs!!.getString(PreferenceConstants.userContactId, "")
+        return prefs?.getString(PreferenceConstants.userContactId, "") ?: ""
     }
 
     fun getUsername(): String {
-        return prefs!!.getString(PreferenceConstants.username, "")
+        return prefs?.getString(PreferenceConstants.username, "") ?: ""
     }
 
     fun getFullName(): String {
-        return prefs!!.getString(PreferenceConstants.fullname, "")
+        return prefs?.getString(PreferenceConstants.fullname, "") ?: ""
     }
 
     // Check if Retrofit created the RestService

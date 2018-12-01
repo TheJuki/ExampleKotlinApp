@@ -13,7 +13,7 @@ fun String?.toSafeDouble(): Double {
         0.0
     } else {
         try {
-            this!!.toDouble()
+            this.toDouble()
         } catch (e: NumberFormatException) {
             0.0
         }

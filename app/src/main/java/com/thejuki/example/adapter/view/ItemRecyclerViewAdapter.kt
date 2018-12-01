@@ -28,7 +28,7 @@ class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableL
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16").toFloatOrNull()
+        val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16")?.toFloatOrNull()
                 ?: 16f
         holder.mId.text = String.format("#%s", item.id.orEmpty())
         holder.mId.textSize = fontSize + 2
