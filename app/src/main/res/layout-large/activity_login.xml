@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_server_url"
                         android:inputType="textUri"
-                        android:nextFocusForward="@+id/.." />
+                        android:nextFocusForward="@+id/username" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_username"
                         android:inputType="text"
-                        android:nextFocusForward="@+id/.." />
+                        android:nextFocusForward="@+id/password" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
