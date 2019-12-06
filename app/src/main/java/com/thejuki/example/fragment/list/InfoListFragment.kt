@@ -68,7 +68,7 @@ class InfoListFragment : androidx.fragment.app.Fragment() {
                             val value = item.id.orEmpty()
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             val clip = ClipData.newPlainText("Copied Text", value)
-                            clipboard.primaryClip = clip
+                            clipboard.setPrimaryClip(clip)
 
                             val simpleAlert = AlertDialog.Builder(context).create()
                             simpleAlert.simple(R.string.phone_copied_title, value)
@@ -77,7 +77,7 @@ class InfoListFragment : androidx.fragment.app.Fragment() {
                             val value = item.id.orEmpty()
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             val clip = ClipData.newPlainText("Copied Text", value)
-                            clipboard.primaryClip = clip
+                            clipboard.setPrimaryClip(clip)
 
                             val simpleAlert = AlertDialog.Builder(context).create()
                             simpleAlert.simple(R.string.email_copied_title, value)

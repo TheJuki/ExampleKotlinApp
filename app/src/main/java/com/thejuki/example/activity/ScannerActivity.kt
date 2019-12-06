@@ -34,11 +34,11 @@ class ScannerActivity : BaseActivity(), me.dm7.barcodescanner.zxing.ZXingScanner
         supportActionBar?.title = getString(R.string.scanner)
         val contentFrame = content_frame
         mScannerView = me.dm7.barcodescanner.zxing.ZXingScannerView(this)
-        mScannerView!!.setFormats(listOf<BarcodeFormat>(
+        mScannerView?.setFormats(listOf(
                 BarcodeFormat.UPC_E, BarcodeFormat.EAN_8, BarcodeFormat.EAN_13, BarcodeFormat.QR_CODE))
         scannerFlashToggle.setOnClickListener {
             mFlash = !mFlash
-            mScannerView!!.flash = mFlash
+            mScannerView?.flash = mFlash
         }
         contentFrame.addView(mScannerView)
     }
@@ -54,17 +54,17 @@ class ScannerActivity : BaseActivity(), me.dm7.barcodescanner.zxing.ZXingScanner
 
     override fun onResume() {
         super.onResume()
-        mScannerView!!.setResultHandler(this)
+        mScannerView?.setResultHandler(this)
         // You can optionally set aspect ratio tolerance level
         // that is used in calculating the optimal Camera preview size
-        mScannerView!!.setAspectTolerance(0.2f)
-        mScannerView!!.startCamera()
-        mScannerView!!.flash = mFlash
+        mScannerView?.setAspectTolerance(0.2f)
+        mScannerView?.startCamera()
+        mScannerView?.flash = mFlash
     }
 
     override fun onPause() {
         super.onPause()
-        mScannerView!!.stopCamera()
+        mScannerView?.stopCamera()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -75,7 +75,7 @@ class ScannerActivity : BaseActivity(), me.dm7.barcodescanner.zxing.ZXingScanner
     override fun handleResult(rawResult: Result) {
         val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Copied Text", rawResult.text)
-        clipboard.primaryClip = clip
+        clipboard.setPrimaryClip(clip)
 
         val simpleAlert = AlertDialog.Builder(this).create()
         simpleAlert.simple(R.string.scan_result_title, rawResult.text)
