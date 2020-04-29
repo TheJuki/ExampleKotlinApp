@@ -23,21 +23,16 @@ import com.thejuki.example.extension.toSafeLong
  * @version 1.0
  */
 class ExampleFirebaseMessagingService : FirebaseMessagingService() {
-    override fun onNewToken(token: String?) {
+    override fun onNewToken(token: String) {
         // Get updated InstanceID token.
-        Log.d("FirebaseInstanceID", "Refreshed token: " + token.orEmpty())
+        Log.d("FirebaseInstanceID", "Refreshed token: $token")
 
         // Update device token
-        ApiClient.getInstance(this.applicationContext).updateDeviceRegistration(token.orEmpty())
+        ApiClient.getInstance(this.applicationContext).updateDeviceRegistration(token)
     }
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-
-        if (remoteMessage == null) {
-            Log.e("FirebaseMessaging", "Remote message is null")
-            return
-        }
 
         Log.d("FirebaseMessaging", "From: " + remoteMessage.from)
 
