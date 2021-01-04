@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
+import com.thejuki.example.databinding.InfoItemListContentBinding
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.json.InfoJson
-import kotlinx.android.synthetic.main.info_item_list_content.view.*
 
 /**
  * Info Item Recycler View Adapter
@@ -23,10 +23,12 @@ class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : android
 
     lateinit var mOnClickListener: View.OnClickListener
     lateinit var prefs: SharedPreferences
+    private lateinit var binding: InfoItemListContentBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.info_item_list_content, parent, false)
+        binding = InfoItemListContentBinding.bind(view)
         prefs = PreferenceHelper.defaultPrefs(parent.context)
         return ViewHolder(view)
     }
@@ -51,7 +53,7 @@ class InfoItemRecyclerViewAdapter(private val mValues: List<InfoJson>) : android
     }
 
     inner class ViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
-        val mTitle: TextView = mView.title
-        val mSubtitle: TextView = mView.subtitle
+        val mTitle: TextView = binding.title
+        val mSubtitle: TextView = binding.subtitle
     }
 }

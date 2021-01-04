@@ -48,7 +48,7 @@ class ApiClient private constructor(context: Context) {
                 restService = retrofit.create(RestService::class.java)
             } catch (e: IllegalArgumentException) {
                 restService = null
-                Log.e("ApiClient", e.message)
+                Log.e("ApiClient", e.message ?: "")
             }
         }
     }
@@ -99,7 +99,7 @@ class ApiClient private constructor(context: Context) {
                             }
                         },
                         { error ->
-                            Log.e("updateDeviceReg", error.message)
+                            Log.e("updateDeviceReg", error.message ?: "")
                         }
                 )
     }

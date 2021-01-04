@@ -67,7 +67,7 @@ class ContactListFragment : BaseListFragment() {
                                 showResults(result)
                             },
                             { error ->
-                                Log.e(logTag, error.message)
+                                Log.e(logTag, error.message ?: "")
                                 showError()
                             }
                     )
@@ -80,7 +80,7 @@ class ContactListFragment : BaseListFragment() {
         fun newInstance(searchTerm: String? = null,
                         isSearching: Boolean = false): ContactListFragment {
             return ContactListFragment().apply {
-                arguments = BaseListFragment.getBundle(
+                arguments = getBundle(
                         searchTerm,
                         isSearching)
             }

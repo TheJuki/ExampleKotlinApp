@@ -26,7 +26,6 @@ import com.thejuki.kformmaster.model.BaseFormElement
 import com.thejuki.kformmaster.model.FormPickerDropDownElement
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_form.*
 import permissions.dispatcher.*
 
 /**
@@ -144,7 +143,7 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
             }
         }
 
-        val formBuildHelper = form(this, formRecyclerView, listener) {
+        val formBuildHelper = form(binding.formRecyclerView, listener) {
             text(FirstName.ordinal) {
                 title = getString(R.string.lbl_firstName)
                 value = mItem!!.firstName.orEmpty()
@@ -198,7 +197,7 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
                             arrayAdapter.loadItems(result)
                         },
                         { error ->
-                            Log.e(logTag, error.message)
+                            Log.e(logTag, error.message ?: "")
                         }
                 )
     }
@@ -240,7 +239,7 @@ class ContactFormActivity : BaseFormActivity<ContactJson>() {
                             },
                             { error ->
                                 hideProgressBar()
-                                Log.e(logTag, error.message)
+                                Log.e(logTag, error.message ?: "")
                                 simpleAlert.simple(R.string.form_error_title, R.string.form_error_description)
                             }
                     )

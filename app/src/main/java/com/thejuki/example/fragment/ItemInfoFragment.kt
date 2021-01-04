@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.thejuki.example.PreferenceConstants
-import com.thejuki.example.R
+import com.thejuki.example.databinding.FragmentItemInfoBinding
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.extension.fromHtml
-import kotlinx.android.synthetic.main.fragment_item_info.view.*
 
 /**
  * Item Info Fragment
@@ -25,6 +24,8 @@ class ItemInfoFragment : androidx.fragment.app.Fragment() {
     private var infoString: String? = null
     private var mInfoTextView: TextView? = null
     lateinit var prefs: SharedPreferences
+    private var _binding: FragmentItemInfoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +36,12 @@ class ItemInfoFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_item_info, container, false)
+        _binding = FragmentItemInfoBinding.inflate(inflater, container, false)
+        val view = binding.root
         prefs = PreferenceHelper.defaultPrefs(context!!)
         val fontSize: Float = prefs.getString(PreferenceConstants.fontSize, "16")?.toFloatOrNull()
                 ?: 16f
-        mInfoTextView = view.infoText
+        mInfoTextView = binding.infoText
         mInfoTextView!!.text = infoString.fromHtml()
         mInfoTextView!!.textSize = fontSize
 
@@ -56,5 +58,10 @@ class ItemInfoFragment : androidx.fragment.app.Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

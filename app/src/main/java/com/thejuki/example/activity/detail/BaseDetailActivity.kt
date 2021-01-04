@@ -7,8 +7,8 @@ import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.BaseActivity
+import com.thejuki.example.databinding.ActivityItemDetailBinding
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**
  * Base Detail Activity
@@ -23,19 +23,22 @@ abstract class BaseDetailActivity<T> : BaseActivity() {
     protected var disposable: Disposable? = null
 
     protected var mItem: T? = null
-    protected var mBottomSheetDialog: BottomSheetDialog? = null
+    protected lateinit var binding: ActivityItemDetailBinding
+    protected lateinit var mBottomSheetDialog: BottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_detail)
-        setSupportActionBar(toolbar)
+        binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Setup Bottom Sheet Dialog
         setupBottomSheet()
 
         if (savedInstanceState != null) {
-            progressbar.visibility = View.GONE
+            binding.progressbar.visibility = View.GONE
             if (savedInstanceState.containsKey(ARG_ITEM_ID)) {
                 id = savedInstanceState.getString(ARG_ITEM_ID)
             }
@@ -61,7 +64,7 @@ abstract class BaseDetailActivity<T> : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mBottomSheetDialog?.dismiss()
+        mBottomSheetDialog.dismiss()
     }
 
     override fun onPause() {
@@ -77,7 +80,7 @@ abstract class BaseDetailActivity<T> : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
                 R.id.action_edit -> {
-                    mBottomSheetDialog!!.show()
+                    mBottomSheetDialog.show()
                     true
                 }
                 android.R.id.home -> {

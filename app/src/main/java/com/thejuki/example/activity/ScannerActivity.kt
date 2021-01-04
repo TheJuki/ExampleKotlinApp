@@ -9,8 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.thejuki.example.R
+import com.thejuki.example.databinding.ActivityScannerBinding
 import com.thejuki.example.extension.simple
-import kotlinx.android.synthetic.main.activity_scanner.*
+import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 /**
  * Scanner Activity
@@ -21,22 +22,28 @@ import kotlinx.android.synthetic.main.activity_scanner.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ScannerActivity : BaseActivity(), me.dm7.barcodescanner.zxing.ZXingScannerView.ResultHandler {
+class ScannerActivity : BaseActivity(), ZXingScannerView.ResultHandler {
 
-    private var mScannerView: me.dm7.barcodescanner.zxing.ZXingScannerView? = null
+    private lateinit var binding: ActivityScannerBinding
+    private var mScannerView: ZXingScannerView? = null
     private var mFlash: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
-        setSupportActionBar(toolbar)
+
+        binding = ActivityScannerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.scanner)
-        val contentFrame = content_frame
-        mScannerView = me.dm7.barcodescanner.zxing.ZXingScannerView(this)
+        val contentFrame = binding.contentFrame
+        mScannerView = ZXingScannerView(this)
         mScannerView?.setFormats(listOf(
                 BarcodeFormat.UPC_E, BarcodeFormat.EAN_8, BarcodeFormat.EAN_13, BarcodeFormat.QR_CODE))
-        scannerFlashToggle.setOnClickListener {
+        binding.scannerFlashToggle.setOnClickListener {
             mFlash = !mFlash
             mScannerView?.flash = mFlash
         }

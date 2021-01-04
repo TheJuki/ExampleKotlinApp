@@ -12,13 +12,13 @@ import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
 import com.thejuki.example.api.AuthManager
+import com.thejuki.example.databinding.ActivityLoginBinding
 import com.thejuki.example.extension.PreferenceHelper.securePrefs
 import com.thejuki.example.extension.PreferenceHelper.set
 import com.thejuki.example.extension.simple
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * Login Activity
@@ -31,17 +31,20 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private var disposable: Disposable? = null
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         val prefs = securePrefs(this)
 
         val serverUrlPref: String? = prefs.getString(PreferenceConstants.serverUrl, "")
-        serverUrl!!.setText(serverUrlPref.orEmpty())
+        binding.serverUrl.setText(serverUrlPref.orEmpty())
 
-        login!!.setOnClickListener { login() }
-        password!!.setOnEditorActionListener { _, actionId, _ ->
+        binding.login.setOnClickListener { login() }
+        binding.password.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 login()
                 true
@@ -54,26 +57,26 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         if (!validate()) return
 
-        login!!.isEnabled = false
-        progressbar.visibility = View.VISIBLE
+        binding.login.isEnabled = false
+        binding.progressbar.visibility = View.VISIBLE
 
         val simpleAlert = AlertDialog.Builder(this).create()
 
         val prefs = securePrefs(this)
 
         val oldServerUrl: String? = prefs.getString(PreferenceConstants.serverUrl, "")
-        if (oldServerUrl.orEmpty() != serverUrl.text.toString()) {
-            ApiClient.getInstance(this).replaceUrl(serverUrl.text.toString() + "/")
-            prefs[PreferenceConstants.serverUrl] = serverUrl.text.toString() + "/"
+        if (oldServerUrl.orEmpty() != binding.serverUrl.text.toString()) {
+            ApiClient.getInstance(this).replaceUrl(binding.serverUrl.text.toString() + "/")
+            prefs[PreferenceConstants.serverUrl] = binding.serverUrl.text.toString() + "/"
         }
 
         if (!ApiClient.getInstance(this).isReady()) {
-            progressbar.visibility = View.INVISIBLE
-            login!!.isEnabled = true
+            binding.progressbar.visibility = View.INVISIBLE
+            binding.login.isEnabled = true
             simpleAlert.simple(R.string.server_error_title, R.string.server_error_description)
         } else {
-            Log.v("LOGIN START", username.text.toString())
-            disposable = ApiClient.getInstance(this).postLogin(username.text.toString(), password.text.toString())
+            Log.v("LOGIN START", binding.username.text.toString())
+            disposable = ApiClient.getInstance(this).postLogin(binding.username.text.toString(), binding.password.text.toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -87,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                                     prefs[PreferenceConstants.rememberUsername] = true
                                     prefs[PreferenceConstants.userPreferencesData] = result.userPreferences
                                     prefs[PreferenceConstants.rolesData] = result.roles
-                                    progressbar.visibility = View.INVISIBLE
+                                    binding.progressbar.visibility = View.INVISIBLE
 
                                     // Update roles
                                     AuthManager.getInstance(this).refresh()
@@ -96,15 +99,15 @@ class LoginActivity : AppCompatActivity() {
                                     startActivity(intent)
                                     finish()
                                 } else {
-                                    progressbar.visibility = View.INVISIBLE
-                                    login!!.isEnabled = true
+                                    binding.progressbar.visibility = View.INVISIBLE
+                                    binding.login.isEnabled = true
                                     simpleAlert.simple(R.string.login_error_title, R.string.login_error_description)
                                 }
                             },
                             { error ->
-                                progressbar.visibility = View.INVISIBLE
-                                login!!.isEnabled = true
-                                Log.e("LoginActivity", error.message)
+                                binding.progressbar.visibility = View.INVISIBLE
+                                binding.login.isEnabled = true
+                                Log.e("LoginActivity", error.message ?: "")
                                 simpleAlert.simple(R.string.server_error_title, R.string.server_error_description)
                             }
                     )
@@ -114,33 +117,28 @@ class LoginActivity : AppCompatActivity() {
     private fun validate(): Boolean {
         var valid = true
 
-        if (!URLUtil.isNetworkUrl(serverUrl.text.toString().toLowerCase())) {
-            serverUrl!!.error = "Invalid Server URL"
+        if (!URLUtil.isNetworkUrl(binding.serverUrl.text.toString().toLowerCase())) {
+            binding.serverUrl.error = "Invalid Server URL"
             valid = false
         } else {
-            serverUrl!!.error = null
+            binding.serverUrl.error = null
         }
 
-        if (username.text.isEmpty()) {
-            username!!.error = "Username required"
+        if (binding.username.text.isEmpty()) {
+            binding.username.error = "Username required"
             valid = false
         } else {
-            username!!.error = null
+            binding.username.error = null
         }
 
-        if (password.text.isEmpty()) {
-            password!!.error = "Password required"
+        if (binding.password.text.isEmpty()) {
+            binding.password.error = "Password required"
             valid = false
         } else {
-            password!!.error = null
+            binding.password.error = null
         }
 
         return valid
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     override fun onPause() {

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
+import com.thejuki.example.databinding.ItemListContentBinding
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.json.TableCellJson
-import kotlinx.android.synthetic.main.item_list_content.view.*
 
 /**
  * Item Recycler View Adapter
@@ -19,11 +19,12 @@ import kotlinx.android.synthetic.main.item_list_content.view.*
  * @author **TheJuki** ([GitHub](https://github.com/TheJuki))
  * @version 1.0
  */
-class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableListOf<TableCellJson>()) :
+class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableListOf()) :
         androidx.recyclerview.widget.RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
 
     lateinit var mOnClickListener: View.OnClickListener
     lateinit var prefs: SharedPreferences
+    private lateinit var binding: ItemListContentBinding
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
@@ -51,6 +52,7 @@ class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableL
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_list_content, parent, false)
+        binding = ItemListContentBinding.bind(view)
         prefs = PreferenceHelper.defaultPrefs(parent.context)
         return ViewHolder(view)
     }
@@ -60,11 +62,11 @@ class ItemRecyclerViewAdapter(val mValues: MutableList<TableCellJson> = mutableL
     }
 
     inner class ViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
-        val mId: TextView = mView.item_id
-        val mAccount: TextView = mView.item_account
-        val mCategory: TextView = mView.item_category
-        val mStatus: TextView = mView.item_status
-        val mContact: TextView = mView.item_contact
-        val mDate: TextView = mView.item_date
+        val mId: TextView = binding.itemId
+        val mAccount: TextView = binding.itemAccount
+        val mCategory: TextView = binding.itemCategory
+        val mStatus: TextView = binding.itemStatus
+        val mContact: TextView = binding.itemContact
+        val mDate: TextView = binding.itemDate
     }
 }

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.thejuki.example.R
+import com.thejuki.example.databinding.TabbedFragmentBinding
 import com.thejuki.example.fragment.QueueFragment.Tabs.Counts
 import com.thejuki.example.fragment.QueueFragment.Tabs.values
-import kotlinx.android.synthetic.main.tabbed_fragment.view.*
 
 /**
  * Queue Fragment
@@ -21,25 +21,28 @@ import kotlinx.android.synthetic.main.tabbed_fragment.view.*
  */
 class QueueFragment : androidx.fragment.app.Fragment() {
     private var mSectionsPagerAdapter: QueueFragment.SectionsPagerAdapter? = null
+    private var _binding: TabbedFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.tabbed_fragment, container, false)
-        setupTabs(view)
+        _binding = TabbedFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        setupTabs()
         return view
     }
 
-    private fun setupTabs(view: View) {
-        view.tabs.addTab(view.tabs.newTab().setText(getString(R.string.counts)))
+    private fun setupTabs() {
+        binding.tabs.addTab(binding.tabs.newTab().setText(getString(R.string.counts)))
 
-        mSectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager, view.tabs.tabCount)
+        mSectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager, binding.tabs.tabCount)
 
         // Set up the ViewPager with the sections adapter.
-        view.container.adapter = mSectionsPagerAdapter
+        binding.container.adapter = mSectionsPagerAdapter
 
-        view.container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.tabs))
-        view.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.container))
-        view.tabs.tabMode = TabLayout.MODE_SCROLLABLE
+        binding.container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabs))
+        binding.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(binding.container))
+        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
     }
 
     enum class Tabs {
@@ -67,5 +70,10 @@ class QueueFragment : androidx.fragment.app.Fragment() {
         fun newInstance(): QueueFragment {
             return QueueFragment()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

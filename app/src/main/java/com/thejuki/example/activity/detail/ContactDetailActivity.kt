@@ -18,6 +18,7 @@ import com.thejuki.example.activity.form.ContactFormActivity
 import com.thejuki.example.activity.form.NoteFormActivity
 import com.thejuki.example.api.ApiClient
 import com.thejuki.example.api.AuthManager
+import com.thejuki.example.databinding.SheetContactBinding
 import com.thejuki.example.enum.ObjectType
 import com.thejuki.example.extension.simple
 import com.thejuki.example.fragment.list.InfoListFragment
@@ -26,8 +27,6 @@ import com.thejuki.example.json.ContactJson
 import com.thejuki.example.json.NoteJson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_item_detail.*
-import kotlinx.android.synthetic.main.sheet_contact.*
 
 /**
  * Contact Detail Activity
@@ -40,41 +39,43 @@ import kotlinx.android.synthetic.main.sheet_contact.*
 class ContactDetailActivity : BaseDetailActivity<ContactJson>() {
     private val logTag = "ContactDetail"
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+    private lateinit var bottomSheetBinding: SheetContactBinding
 
     @SuppressLint("InflateParams")
     override fun setupBottomSheet() {
         mBottomSheetDialog = BottomSheetDialog(this)
-        val sheetView = this.layoutInflater.inflate(R.layout.sheet_contact, null)
-        mBottomSheetDialog!!.setContentView(sheetView)
+        bottomSheetBinding = SheetContactBinding.inflate(layoutInflater)
+        val view = bottomSheetBinding.root
+        mBottomSheetDialog.setContentView(view)
 
-        mBottomSheetDialog!!.sheet_close.setOnClickListener({
-            mBottomSheetDialog!!.dismiss()
-        })
+        bottomSheetBinding.sheetClose.setOnClickListener {
+            mBottomSheetDialog.dismiss()
+        }
 
         if (AuthManager.getInstance(this).has("contact_edit")) {
-            mBottomSheetDialog!!.sheet_edit.setOnClickListener({
-                mBottomSheetDialog!!.dismiss()
+            bottomSheetBinding.sheetEdit.setOnClickListener {
+                mBottomSheetDialog.dismiss()
                 val intent = Intent(this, ContactFormActivity::class.java).apply {
                     putExtra(BaseFormActivity.ARG_ITEM, mItem)
                 }
                 startActivity(intent)
-            })
+            }
         } else {
-            mBottomSheetDialog!!.sheet_edit.visibility = View.GONE
+            bottomSheetBinding.sheetEdit.visibility = View.GONE
         }
 
         if (AuthManager.getInstance(this).has("note_add")) {
-            mBottomSheetDialog!!.sheet_add_note.setOnClickListener({
-                mBottomSheetDialog!!.dismiss()
+            bottomSheetBinding.sheetAddNote.setOnClickListener {
+                mBottomSheetDialog.dismiss()
                 val intent = Intent(this, NoteFormActivity::class.java).apply {
                     putExtra(BaseFormActivity.ARG_ITEM,
                             NoteJson(parentId = mItem!!.id,
                                     parentType = ObjectType.Contact.value))
                 }
                 startActivity(intent)
-            })
+            }
         } else {
-            mBottomSheetDialog!!.sheet_add_note.visibility = View.GONE
+            bottomSheetBinding.sheetAddNote.visibility = View.GONE
         }
     }
 
@@ -86,7 +87,7 @@ class ContactDetailActivity : BaseDetailActivity<ContactJson>() {
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
                 R.id.action_edit -> {
-                    mBottomSheetDialog!!.show()
+                    mBottomSheetDialog.show()
                     true
                 }
                 android.R.id.home -> {
@@ -109,13 +110,13 @@ class ContactDetailActivity : BaseDetailActivity<ContactJson>() {
                                 finish()
                             } else {
                                 mItem = result
-                                progressbar.visibility = View.GONE
+                                binding.progressbar.visibility = View.GONE
                                 setupTabs()
                             }
                         },
                         { error ->
-                            progressbar.visibility = View.GONE
-                            Log.e(logTag, error.message)
+                            binding.progressbar.visibility = View.GONE
+                            Log.e(logTag, error.message ?: "")
                             val simpleAlert = AlertDialog.Builder(this).create()
                             simpleAlert.simple(R.string.server_error_title, R.string.server_error_description)
                         }
@@ -125,17 +126,17 @@ class ContactDetailActivity : BaseDetailActivity<ContactJson>() {
     override fun setupTabs() {
         supportActionBar?.title = "Contact: " + mItem?.id.orEmpty()
 
-        tabs.addTab(tabs.newTab().setText(getString(R.string.info)))
-        tabs.addTab(tabs.newTab().setText(getString(R.string.notes)))
+        binding.tabs.addTab(binding.tabs.newTab().setText(getString(R.string.info)))
+        binding.tabs.addTab(binding.tabs.newTab().setText(getString(R.string.notes)))
 
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, tabs.tabCount)
+        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, binding.tabs.tabCount)
 
         // Set up the ViewPager with the sections adapter.
-        container.adapter = mSectionsPagerAdapter
+        binding.container.adapter = mSectionsPagerAdapter
 
-        container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
-        tabs.tabMode = TabLayout.MODE_SCROLLABLE
+        binding.container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabs))
+        binding.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(binding.container))
+        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
     }
 
     enum class Tabs {

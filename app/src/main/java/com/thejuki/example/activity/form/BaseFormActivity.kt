@@ -11,8 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import com.thejuki.example.R
 import com.thejuki.example.activity.BaseActivity
+import com.thejuki.example.databinding.ActivityFormBinding
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_form.*
 
 /**
  * Base Form Activity
@@ -26,10 +26,13 @@ abstract class BaseFormActivity<T : Parcelable> : BaseActivity() {
     protected var disposable: Disposable? = null
     protected var mItem: T? = null
     private val logTag = "BaseForm"
+    protected lateinit var binding: ActivityFormBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form)
+        binding = ActivityFormBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState != null) {
@@ -84,7 +87,7 @@ abstract class BaseFormActivity<T : Parcelable> : BaseActivity() {
 
     protected fun showProgressBar() {
         hideSoftKeyBoard()
-        progressbar.visibility = View.VISIBLE
+        binding.progressbar.visibility = View.VISIBLE
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
@@ -98,7 +101,7 @@ abstract class BaseFormActivity<T : Parcelable> : BaseActivity() {
     }
 
     protected fun hideProgressBar() {
-        progressbar.visibility = View.GONE
+        binding.progressbar.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 

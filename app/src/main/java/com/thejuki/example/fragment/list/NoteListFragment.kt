@@ -101,7 +101,7 @@ class NoteListFragment : BaseListFragment() {
                             showResults(result)
                         },
                         { error ->
-                            Log.e(logTag, error.message)
+                            Log.e(logTag, error.message ?: "")
                             showError()
                         }
                 )

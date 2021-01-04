@@ -15,13 +15,12 @@ import com.thejuki.example.PreferenceConstants
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
 import com.thejuki.example.api.AuthManager
+import com.thejuki.example.databinding.ActivityDrawerBinding
+import com.thejuki.example.databinding.NavHeaderMainBinding
 import com.thejuki.example.extension.PreferenceHelper
 import com.thejuki.example.extension.PreferenceHelper.set
 import com.thejuki.example.fragment.QueueFragment
 import com.thejuki.example.fragment.list.ContactListFragment
-import kotlinx.android.synthetic.main.activity_drawer.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 /**
  * Drawer Activity
@@ -35,22 +34,28 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
 
     private var isSearchMenuItemHidden = false
     private var lastNavigationItemId: Int? = null
+    private lateinit var binding: ActivityDrawerBinding
+    private lateinit var navHeaderMainBinding: NavHeaderMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_drawer)
-        setSupportActionBar(toolbar)
+        binding = ActivityDrawerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        setSupportActionBar(binding.appBarMainView.toolbar)
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
+                this, binding.drawerLayout, binding.appBarMainView.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         // Set User
-        nav_view.getHeaderView(0).username.text = ApiClient.getInstance(this).getUsername()
-        nav_view.getHeaderView(0).fullName.text = ApiClient.getInstance(this).getFullName()
+        navHeaderMainBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
+        navHeaderMainBinding.username.text = ApiClient.getInstance(this).getUsername()
+        navHeaderMainBinding.fullName.text = ApiClient.getInstance(this).getFullName()
 
-        nav_view.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         authCheck(AuthManager.getInstance(this))
 
@@ -60,14 +65,14 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             }
             replaceItemContainer(lastNavigationItemId ?: 0)
         } else {
-            nav_view.setCheckedItem(R.id.nav_contacts)
+            binding.navView.setCheckedItem(R.id.nav_contacts)
             replaceItemContainer(R.id.nav_contacts)
         }
     }
 
     private fun authCheck(authManager: AuthManager) {
-        (0 until nav_view.menu.size())
-                .map { nav_view.menu.getItem(it) }
+        (0 until binding.navView.menu.size())
+                .map { binding.navView.menu.getItem(it) }
                 .forEach {
 
                 }
@@ -75,8 +80,8 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -123,21 +128,17 @@ class DrawerActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun handleSearchQueryChange(q: String? = null, isSearching: Boolean = true) {
-        val menuItemId: Int? = (0 until nav_view.menu.size())
-                .map { nav_view.menu.getItem(it) }
+        val menuItemId: Int? = (0 until binding.navView.menu.size())
+                .map { binding.navView.menu.getItem(it) }
                 .firstOrNull { it.isChecked }
                 ?.itemId
 
         menuItemId?.let { replaceItemContainer(it, q, isSearching) }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         replaceItemContainer(item.itemId)
-        drawer_layout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

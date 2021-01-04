@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.thejuki.example.R
-import jp.wasabeef.richeditor.RichEditor
-import kotlinx.android.synthetic.main.activity_htmleditor.*
+import com.thejuki.example.databinding.ActivityHtmleditorBinding
 
 /**
  * HTML Editor Activity
@@ -22,111 +20,112 @@ import kotlinx.android.synthetic.main.activity_htmleditor.*
  */
 class HTMLEditorActivity : BaseActivity() {
 
-    private var mEditor: RichEditor? = null
     private var mText: String? = null
     private var mTag: Int? = null
+    private lateinit var binding: ActivityHtmleditorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_htmleditor)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        mEditor = editor
+        binding = ActivityHtmleditorBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(HTMLEditorActivity.ARG_ITEM_HTML)) {
-                mText = savedInstanceState.getString(HTMLEditorActivity.ARG_ITEM_HTML)
+            if (savedInstanceState.containsKey(ARG_ITEM_HTML)) {
+                mText = savedInstanceState.getString(ARG_ITEM_HTML)
             }
-            if (savedInstanceState.containsKey(HTMLEditorActivity.ARG_ITEM_HTML)) {
-                mTag = savedInstanceState.getInt(HTMLEditorActivity.ARG_ITEM_TAG)
+            if (savedInstanceState.containsKey(ARG_ITEM_HTML)) {
+                mTag = savedInstanceState.getInt(ARG_ITEM_TAG)
             }
-            if (savedInstanceState.containsKey(HTMLEditorActivity.ARG_ITEM_TITLE)) {
-                supportActionBar?.title = savedInstanceState.getString(HTMLEditorActivity.ARG_ITEM_TITLE)
+            if (savedInstanceState.containsKey(ARG_ITEM_TITLE)) {
+                supportActionBar?.title = savedInstanceState.getString(ARG_ITEM_TITLE)
             }
         } else {
             val b = intent.extras
             if (b != null) {
-                mText = b.getString(HTMLEditorActivity.ARG_ITEM_HTML)
-                mTag = b.getInt(HTMLEditorActivity.ARG_ITEM_TAG)
-                supportActionBar?.title = b.getString(HTMLEditorActivity.ARG_ITEM_TITLE)
+                mText = b.getString(ARG_ITEM_HTML)
+                mTag = b.getInt(ARG_ITEM_TAG)
+                supportActionBar?.title = b.getString(ARG_ITEM_TITLE)
             }
         }
 
-        mEditor!!.setEditorHeight(200)
-        mEditor!!.setEditorFontSize(18)
-        mEditor!!.setEditorFontColor(Color.BLACK)
-        mEditor!!.setPadding(10, 10, 10, 10)
-        mEditor!!.setPlaceholder("")
-        mEditor!!.html = mText
+        binding.editor.setEditorHeight(200)
+        binding.editor.setEditorFontSize(18)
+        binding.editor.setEditorFontColor(Color.BLACK)
+        binding.editor.setPadding(10, 10, 10, 10)
+        binding.editor.setPlaceholder("")
+        binding.editor.html = mText
 
-        mEditor!!.setOnTextChangeListener {
-            mText = mEditor!!.html
+        binding.editor.setOnTextChangeListener {
+            mText = binding.editor.html
         }
 
-        action_undo.setOnClickListener { mEditor!!.undo() }
+        binding.actionUndo.setOnClickListener { binding.editor.undo() }
 
-        action_redo.setOnClickListener { mEditor!!.redo() }
+        binding.actionRedo.setOnClickListener { binding.editor.redo() }
 
-        action_bold.setOnClickListener { mEditor!!.setBold() }
+        binding.actionBold.setOnClickListener { binding.editor.setBold() }
 
-        action_italic.setOnClickListener { mEditor!!.setItalic() }
+        binding.actionItalic.setOnClickListener { binding.editor.setItalic() }
 
-        action_subscript.setOnClickListener { mEditor!!.setSubscript() }
+        binding.actionSubscript.setOnClickListener { binding.editor.setSubscript() }
 
-        action_superscript.setOnClickListener { mEditor!!.setSuperscript() }
+        binding.actionSuperscript.setOnClickListener { binding.editor.setSuperscript() }
 
-        action_strikethrough.setOnClickListener { mEditor!!.setStrikeThrough() }
+        binding.actionStrikethrough.setOnClickListener { binding.editor.setStrikeThrough() }
 
-        action_underline.setOnClickListener { mEditor!!.setUnderline() }
+        binding.actionUnderline.setOnClickListener { binding.editor.setUnderline() }
 
-        action_heading1.setOnClickListener { mEditor!!.setHeading(1) }
+        binding.actionHeading1.setOnClickListener { binding.editor.setHeading(1) }
 
-        action_heading2.setOnClickListener { mEditor!!.setHeading(2) }
+        binding.actionHeading2.setOnClickListener { binding.editor.setHeading(2) }
 
-        action_heading3.setOnClickListener { mEditor!!.setHeading(3) }
+        binding.actionHeading3.setOnClickListener { binding.editor.setHeading(3) }
 
-        action_heading4.setOnClickListener { mEditor!!.setHeading(4) }
+        binding.actionHeading4.setOnClickListener { binding.editor.setHeading(4) }
 
-        action_heading5.setOnClickListener { mEditor!!.setHeading(5) }
+        binding.actionHeading5.setOnClickListener { binding.editor.setHeading(5) }
 
-        action_heading6.setOnClickListener { mEditor!!.setHeading(6) }
+        binding.actionHeading6.setOnClickListener { binding.editor.setHeading(6) }
 
-        action_txt_color.setOnClickListener(object : View.OnClickListener {
+        binding.actionTxtColor.setOnClickListener(object : View.OnClickListener {
             private var isChanged: Boolean = false
 
             override fun onClick(v: View) {
-                mEditor!!.setTextColor(if (isChanged) Color.BLACK else Color.RED)
+                binding.editor.setTextColor(if (isChanged) Color.BLACK else Color.RED)
                 isChanged = !isChanged
             }
         })
 
-        action_bg_color.setOnClickListener(object : View.OnClickListener {
+        binding.actionBgColor.setOnClickListener(object : View.OnClickListener {
             private var isChanged: Boolean = false
 
             override fun onClick(v: View) {
-                mEditor!!.setTextBackgroundColor(if (isChanged) Color.WHITE else Color.YELLOW)
+                binding.editor.setTextBackgroundColor(if (isChanged) Color.WHITE else Color.YELLOW)
                 isChanged = !isChanged
             }
         })
 
-        action_indent.setOnClickListener { mEditor!!.setIndent() }
+        binding.actionIndent.setOnClickListener { binding.editor.setIndent() }
 
-        action_outdent.setOnClickListener { mEditor!!.setOutdent() }
+        binding.actionOutdent.setOnClickListener { binding.editor.setOutdent() }
 
-        action_align_left.setOnClickListener { mEditor!!.setAlignLeft() }
+        binding.actionAlignLeft.setOnClickListener { binding.editor.setAlignLeft() }
 
-        action_align_center.setOnClickListener { mEditor!!.setAlignCenter() }
+        binding.actionAlignCenter.setOnClickListener { binding.editor.setAlignCenter() }
 
-        action_align_right.setOnClickListener { mEditor!!.setAlignRight() }
+        binding.actionAlignRight.setOnClickListener { binding.editor.setAlignRight() }
 
-        action_blockquote.setOnClickListener { mEditor!!.setBlockquote() }
+        binding.actionBlockquote.setOnClickListener { binding.editor.setBlockquote() }
 
-        action_insert_bullets.setOnClickListener { mEditor!!.setBullets() }
+        binding.actionInsertBullets.setOnClickListener { binding.editor.setBullets() }
 
-        action_insert_numbers.setOnClickListener { mEditor!!.setNumbers() }
+        binding.actionInsertNumbers.setOnClickListener { binding.editor.setNumbers() }
 
-        action_insert_checkbox.setOnClickListener { mEditor!!.insertTodo() }
+        binding.actionInsertCheckbox.setOnClickListener { binding.editor.insertTodo() }
 
-        mEditor!!.focusEditor()
+        binding.editor.focusEditor()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -156,16 +155,16 @@ class HTMLEditorActivity : BaseActivity() {
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(HTMLEditorActivity.ARG_ITEM_HTML, mText.orEmpty())
-        outState.putInt(HTMLEditorActivity.ARG_ITEM_TAG, mTag ?: 0)
-        outState.putString(HTMLEditorActivity.ARG_ITEM_TITLE, supportActionBar?.title.toString())
+        outState.putString(ARG_ITEM_HTML, mText.orEmpty())
+        outState.putInt(ARG_ITEM_TAG, mTag ?: 0)
+        outState.putString(ARG_ITEM_TITLE, supportActionBar?.title.toString())
         super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        web_container.removeAllViews();
-        mEditor!!.destroy()
+        binding.webContainer.removeAllViews()
+        binding.editor.destroy()
     }
 
     companion object {

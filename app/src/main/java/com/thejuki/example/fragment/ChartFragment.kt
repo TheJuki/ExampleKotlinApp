@@ -18,13 +18,13 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.material.snackbar.Snackbar
 import com.thejuki.example.R
 import com.thejuki.example.api.ApiClient
+import com.thejuki.example.databinding.FragmentWorkQueueChartBinding
 import com.thejuki.example.extension.getThemeAttrColor
 import com.thejuki.example.extension.simple
 import com.thejuki.example.json.CountsJson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_work_queue_chart.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,6 +39,8 @@ import java.util.*
 class ChartFragment : androidx.fragment.app.Fragment() {
     private val logTag = "Chart"
     private var disposable: Disposable? = null
+    private var _binding: FragmentWorkQueueChartBinding? = null
+    private val binding get() = _binding!!
 
     private var mItem: CountsJson? = null
     private var mSwipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null
@@ -49,20 +51,19 @@ class ChartFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_work_queue_chart, container, false)
+        _binding = FragmentWorkQueueChartBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        mFirstPieChart = view.firstPieChart
-        mSecondPieChart = view.secondPieChart
-        mThirdPieChart = view.thirdPieChart
+        mFirstPieChart = binding.firstPieChart
+        mSecondPieChart = binding.secondPieChart
+        mThirdPieChart = binding.thirdPieChart
 
-        mSwipeRefreshLayout = view.swiperefresh
-        mCoordinatorLayout = view.clayout
+        mSwipeRefreshLayout = binding.swiperefresh
+        mCoordinatorLayout = binding.clayout
 
-        mSwipeRefreshLayout!!.setOnRefreshListener(
-                {
-                    this.reload()
-                }
-        )
+        mSwipeRefreshLayout!!.setOnRefreshListener {
+            this.reload()
+        }
         mSwipeRefreshLayout!!.setColorSchemeResources(
                 R.color.refresh_progress_1,
                 R.color.refresh_progress_2,
@@ -96,7 +97,7 @@ class ChartFragment : androidx.fragment.app.Fragment() {
                         },
                         { error ->
                             mSwipeRefreshLayout!!.isRefreshing = false
-                            Log.e(logTag, error.message)
+                            Log.e(logTag, error.message ?: "")
                             val simpleAlert = AlertDialog.Builder(context!!).create()
                             simpleAlert.simple(R.string.server_error_title, R.string.server_error_description)
                         }
@@ -226,4 +227,8 @@ class ChartFragment : androidx.fragment.app.Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

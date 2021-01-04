@@ -11,10 +11,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.thejuki.example.R
 import com.thejuki.example.adapter.view.ItemRecyclerViewAdapter
 import com.thejuki.example.adapter.view.RecyclerViewEmptySupport
+import com.thejuki.example.databinding.FragmentItemListBinding
 import com.thejuki.example.json.TableCellJson
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_item_list.*
-import kotlinx.android.synthetic.main.fragment_item_list.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,14 +38,13 @@ abstract class BaseListFragment : androidx.fragment.app.Fragment() {
     private var mEmptyView: TextView? = null
     private var mProgressBar: ProgressBar? = null
     protected var mItemRecyclerViewAdapter: ItemRecyclerViewAdapter? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var _binding: FragmentItemListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(ARG_SEARCH_TERM)) {
@@ -62,12 +60,12 @@ abstract class BaseListFragment : androidx.fragment.app.Fragment() {
             }
         }
 
-        mRecycleView = view.item_list
-        mFab = view.fab
-        mHeader = view.header
-        mSwipeRefreshLayout = view.swiperefresh
-        mProgressBar = view.progressbar
-        mEmptyView = view.empty
+        mRecycleView = binding.itemList
+        mFab = binding.fab
+        mHeader = binding.header
+        mSwipeRefreshLayout = binding.swiperefresh
+        mProgressBar = binding.progressbar
+        mEmptyView = binding.empty
         mItemRecyclerViewAdapter = ItemRecyclerViewAdapter()
         mRecycleView!!.adapter = mItemRecyclerViewAdapter
 
@@ -101,7 +99,7 @@ abstract class BaseListFragment : androidx.fragment.app.Fragment() {
         val formatter = SimpleDateFormat("h:mm a", Locale.US)
 
         if (showSnackBar) {
-            Snackbar.make(clayout,
+            Snackbar.make(binding.clayout,
                     String.format(getString(R.string.list_updated), formatter.format(date),
                             mItemRecyclerViewAdapter!!.mValues.size),
                     Snackbar.LENGTH_LONG).show()
@@ -152,5 +150,10 @@ abstract class BaseListFragment : androidx.fragment.app.Fragment() {
             args.putBoolean(ARG_IS_SEARCHING, isSearching)
             return args
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

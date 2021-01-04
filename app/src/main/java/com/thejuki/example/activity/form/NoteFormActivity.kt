@@ -19,7 +19,6 @@ import com.thejuki.kformmaster.listener.OnFormElementValueChangedListener
 import com.thejuki.kformmaster.model.BaseFormElement
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_form.*
 
 /**
  * Note Form Activity
@@ -81,7 +80,7 @@ class NoteFormActivity : BaseFormActivity<NoteJson>() {
             }
         }
 
-        form(this, formRecyclerView, listener) {
+        form(binding.formRecyclerView, listener) {
             if (mItem!!.formAction == "Add") {
                 dropDown<ListItemJson>(Type.ordinal) {
                     title = getString(R.string.lbl_type)
@@ -144,7 +143,7 @@ class NoteFormActivity : BaseFormActivity<NoteJson>() {
                             },
                             { error ->
                                 hideProgressBar()
-                                Log.e(logTag, error.message)
+                                Log.e(logTag, error.message ?: "")
                                 simpleAlert.simple(R.string.form_error_title, R.string.form_error_description)
                             }
                     )
@@ -180,7 +179,7 @@ class NoteFormActivity : BaseFormActivity<NoteJson>() {
         }
 
         val tag: Int = data.getIntExtra("item_tag", 0)
-        val value: String = data.getStringExtra("item_value")
+        val value: String = data.getStringExtra("item_value") ?: ""
 
         when (values()[tag]) {
             Body -> {
