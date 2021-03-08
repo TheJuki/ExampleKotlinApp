@@ -1,16 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.21'
+    ext.kotlin_version = '1.4.31'
     ext.dokka_version = '0.9.17'
     ext.crashlytics_version = '2.0.0'
     ext.gms_version = '4.3.3'
     repositories {
+        mavenCentral()
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokka_version"
         classpath "com.google.gms:google-services:$gms_version"
@@ -20,13 +21,13 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
         jcenter()
         maven { url "https://jitpack.io" }
         maven {
             url 'https://github.com/omadahealth/omada-nexus/raw/master/release'
         }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
 }
 
