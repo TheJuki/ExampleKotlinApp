@@ -7,9 +7,9 @@
 - Drawer to open different activities
 - Settings with a font size and dark theme
 - Login page
-- Splash screen
 - Retrofit to make API calls to the Example API
 - GSON for handling JSON data
+- Splash screen
 - RxJava and RxAndroid to get the result or error from Retrofit calls
 - Firebase integration for Notification and Crashlytics support
 - secure-preferences for secure user preferences
